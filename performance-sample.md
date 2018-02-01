@@ -34,7 +34,7 @@ Initial backup, using default options:
   Rate:                   32212.3 KB/s
 ```
 
-Incremental backup, using default options, with no modified file, with accurate mode:
+Incremental backup, using default options, no modified file, **with** accurate mode:
 ```
   Elapsed time:           2 secs
   Priority:               10
@@ -45,7 +45,7 @@ Incremental backup, using default options, with no modified file, with accurate 
   Rate:                   0.0 KB/s
 ```
 
-Incremental backup, using default options, with no modified file, without accurate mode:
+Incremental backup, using default options, no modified file, **without** accurate mode:
 ```
   Elapsed time:           2 secs
   Priority:               10
@@ -103,7 +103,7 @@ Initial backup, using default options:
   Rate:                   13076.6 KB/s
 ```
 
-Incremental backup, using default options, with no modified file, without accurate mode:
+Incremental backup, using default options, no modified file, **without** accurate mode:
 ```
   Elapsed time:           13 secs
   Priority:               10
@@ -114,7 +114,7 @@ Incremental backup, using default options, with no modified file, without accura
   Rate:                   0.0 KB/s
 ```
 
-Incremental backup, using default options, with no modified file, with accurate mode:
+Incremental backup, using default options, no modified file, **with** accurate mode:
 ```
   Elapsed time:           19 secs
   Priority:               10
@@ -197,7 +197,7 @@ Initial backup, using default options:
   Rate:                   13173.2 KB/s
 ```
 
-Incremental backup, using default options, with no modified file, without accurate mode:
+Incremental backup, using default options, no modified file, **without** accurate mode:
 ```
   Elapsed time:           9 mins 17 secs
   Priority:               10
@@ -208,7 +208,7 @@ Incremental backup, using default options, with no modified file, without accura
   Rate:                   0.0 KB/s
 ```
 
-Incremental backup, using default options, with no modified file, with accurate mode:
+Incremental backup, using default options, no modified file, **with** accurate mode:
 ```
   Elapsed time:           15 mins 38 secs
   Priority:               10

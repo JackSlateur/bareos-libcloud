@@ -21,7 +21,7 @@ Required packages
 - standard python-legacy installation (the plugin should run on Python3, Bareos seems not)
 - standard Bareos installation (tested on 16.2.6)
 
-*Important*: the last version of libcloud, v2.2.1, has a bug regarding object streaming (object is filled in memory, not really streamed, which is an issue for large object, as you will encounted memory overrun). It is fixed on the trunk branch.
+*Important*: the last version of libcloud, v2.2.1, has a bug regarding object streaming (object is filled in memory, not really streamed, which is an issue for large object, as you will encounter memory overrun). It is fixed on the trunk branch.
 
 Installation
 ---
