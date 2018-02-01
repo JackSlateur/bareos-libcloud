@@ -86,6 +86,12 @@ Performance data
 A couple of performance sample are available. See [performance-sample.md](performance-sample.md)
 
 
+Known bug
+---
+
+Libcloud currently cannot handle "wild" object name. It uses urllib.urlencode() where is should not. In short, if you have exotic characters, these objects will not be backed up (a message will be logged).  
+A bug report is filled, no bug fix is released yet.
+
 
 
 Feedbacks, feature requests or bug reports are welcome !
