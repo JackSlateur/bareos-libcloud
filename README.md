@@ -48,7 +48,6 @@ Possible values can be found here : https://libcloud.readthedocs.io/en/latest/st
 `debug`: A boolean (True/true or False/false). If True or true, the plugin will log many debugging information via syslog. Default False.  
 
 
-By default, all
 All options are passed to libcloud. Thus, you can modify any option (including mandatories options, like `host`, `key` and `secret`).  
 To see which options are supported by libcloud, check out their documentation (for instance, Ceph's RGW: https://libcloud.readthedocs.io/en/latest/apidocs/libcloud.storage.drivers.html#libcloud.storage.drivers.rgw.S3RGWStorageDriver , Google's GCS: https://libcloud.readthedocs.io/en/latest/apidocs/libcloud.storage.drivers.html#libcloud.storage.drivers.google_storage.GoogleStorageDriver)
 
