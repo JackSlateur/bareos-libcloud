@@ -292,10 +292,10 @@ class BareosFdPluginRGW(BareosFdPluginBaseclass.BareosFdPluginBaseclass):
 			old = self.options['debug']
 			self.options['debug'] = str2bool(old)
 
-		# Setup debugging
-		if self.options['debug'] is True:
-			global debug
-			debug = True
+			# Setup debugging
+			if self.options['debug'] is True:
+				global debug
+				debug = True
 
 		accurate = bareos_fd_consts.bVariable['bVarAccurate']
 		accurate = bareosfd.GetValue(context, accurate)
