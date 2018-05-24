@@ -308,10 +308,6 @@ class BareosFdPluginRGW(BareosFdPluginBaseclass.BareosFdPluginBaseclass):
 		return bRCs['bRC_OK']
 
 	def start_backup_job(self, context):
-		# We do not care much about our slaves
-		# To avoid both .join() and zombies, simply ignore SIG_CHILD
-		signal.signal(signal.SIGCHLD, signal.SIG_IGN)
-
 		self.manager = multiprocessing.Manager()
 		self.plugin_todo_queue = self.manager.Queue(maxsize=self.options['queue_size'])
 		self.pref_todo_queue = self.manager.Queue(maxsize=self.options['nb_prefetcher'])
@@ -328,6 +324,12 @@ class BareosFdPluginRGW(BareosFdPluginBaseclass.BareosFdPluginBaseclass):
 		self.writer = multiprocessing.Process(target=writer)
 		self.writer.start()
 		self.driver = connect(self.options)
+
+		# We do not care much about our slaves
+		# To avoid both .join() and zombies, simply ignore SIG_CHILD
+		# Put this after the connect(), because it triggers a bug
+		# somewhere on windows-platforms
+		signal.signal(signal.SIGCHLD, signal.SIG_IGN)
 
 	def check_file(self, context, fname):
 		# All existing files are passed to bareos
