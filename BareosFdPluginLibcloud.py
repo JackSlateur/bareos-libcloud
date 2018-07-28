@@ -77,7 +77,16 @@ def str2bool(data):
 
 
 def connect(options):
-	driver = get_driver(getattr(Provider, options['provider']))(**options)
+	driver_opt = dict(options)
+
+	# Some drivers does not support unknown options
+	# Here, we remove those used by libcloud and let the rest pass through
+	for opt in ('buckets_exclude', 'accurate', 'nb_prefetcher', 'prefetch_size', 'queue_size', 'provider', 'buckets_include', 'debug'):
+		if opt in options:
+			del drivers_opt[opt]
+
+	provider = getattr(Provider, options['provider'])
+	driver = get_driver(provider)(**drivers_opt)
 	return driver
 
 
