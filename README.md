@@ -33,7 +33,7 @@ Configuration
 
 Basic configuration: backup bucket 'test' on a Ceph's RGW:
 ```
-Plugin = "python:module_path=/usr/lib/bareos/plugins:module_name=bareos-fd-rgw:provider=S3_RGW:key=the_key:secret=the_secret:host=your_hostname:buckets_include=test"
+Plugin = "python:module_path=/usr/lib/bareos/plugins:module_name=bareos-fd-libcloud:provider=S3_RGW:key=the_key:secret=the_secret:host=your_hostname:buckets_include=test"
 ```
 
 Details:

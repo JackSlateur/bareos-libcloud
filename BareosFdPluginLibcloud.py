@@ -232,12 +232,12 @@ class Writer(object):
 		self.plugin_todo_queue.put(None)
 
 
-class BareosFdPluginRGW(BareosFdPluginBaseclass.BareosFdPluginBaseclass):
+class BareosFdPluginLibcloud(BareosFdPluginBaseclass.BareosFdPluginBaseclass):
 	def __init__(self, context, plugindef):
-		log('BareosFdPluginRGW called with plugindef: %s' % (plugindef,))
+		log('BareosFdPluginLibcloud called with plugindef: %s' % (plugindef,))
 
-		super(BareosFdPluginRGW, self).__init__(context, plugindef)
-		super(BareosFdPluginRGW, self).parse_plugin_definition(context, plugindef)
+		super(BareosFdPluginLibcloud, self).__init__(context, plugindef)
+		super(BareosFdPluginLibcloud, self).parse_plugin_definition(context, plugindef)
 		self.__parse_options(context)
 
 		self.last_run = datetime.datetime.fromtimestamp(self.since)

@@ -29,7 +29,7 @@ import BareosFdWrapper
 from BareosFdWrapper import *  # noqa
 
 # This module contains the used plugin class
-import BareosFdPluginRGW
+import BareosFdPluginLibcloud
 
 
 def load_bareos_plugin(context, plugindef):
@@ -40,7 +40,7 @@ def load_bareos_plugin(context, plugindef):
     # BareosFdWrapper.bareos_fd_plugin_object is the module attribute that
     # holds the plugin class object
     BareosFdWrapper.bareos_fd_plugin_object = \
-        BareosFdPluginRGW.BareosFdPluginRGW(
+        BareosFdPluginLibcloud.BareosFdPluginLibcloud(
             context, plugindef)
     return bareos_fd_consts.bRCs['bRC_OK']
 
