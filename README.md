@@ -52,6 +52,11 @@ Possible values can be found here : https://libcloud.readthedocs.io/en/latest/st
 All options not specific to this plugin are passed to libcloud. Thus, you can modify any option (including mandatories options, like `host`, `key` and `secret`). Note that, depending on the driver you are using, an unknown option may cause trouble.  
 To see which options are supported by libcloud, check out their documentation (for instance, Ceph's RGW: https://libcloud.readthedocs.io/en/latest/apidocs/libcloud.storage.drivers.html#libcloud.storage.drivers.rgw.S3RGWStorageDriver , Google's GCS: https://libcloud.readthedocs.io/en/latest/apidocs/libcloud.storage.drivers.html#libcloud.storage.drivers.google_storage.GoogleStorageDriver)
 
+Another configuration sample, for GCP:
+```
+Plugin = "python:module_path=/usr/lib/bareos/plugins:module_name=bareos-fd-libcloud:provider=GOOGLE_STORAGE:key=test-628@fluent-optics-1234.iam.gserviceaccount.com:secret=/path/to/your/token.json:projet=fluent-optics-1234"
+```
+
 
 Performance, CPU & memory usage
 ---
