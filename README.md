@@ -18,6 +18,7 @@ Required packages
 ---
 
 - python-libcloud (https://github.com/apache/libcloud).
+- python-dateutil
 - standard python-legacy installation (the plugin should run on Python3, Bareos seems not)
 - standard Bareos installation (tested on 16.2.6)
 
