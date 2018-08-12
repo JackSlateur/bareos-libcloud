@@ -83,10 +83,10 @@ def connect(options):
 	# Here, we remove those used by libcloud and let the rest pass through
 	for opt in ('buckets_exclude', 'accurate', 'nb_prefetcher', 'prefetch_size', 'queue_size', 'provider', 'buckets_include', 'debug'):
 		if opt in options:
-			del drivers_opt[opt]
+			del driver_opt[opt]
 
 	provider = getattr(Provider, options['provider'])
-	driver = get_driver(provider)(**drivers_opt)
+	driver = get_driver(provider)(**driver_opt)
 	return driver
 
 
