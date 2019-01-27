@@ -29,7 +29,6 @@ import itertools
 import libcloud
 import multiprocessing
 import os
-import signal
 import syslog
 import time
 import traceback
@@ -218,23 +217,14 @@ class Writer(object):
 		for i in range(0, self.options['nb_prefetcher']):
 			self.pref_todo_queue.put(None)
 
+		log('__end_job: waiting for prefetchers queue to drain')
 		while True:
-			new_list = list()
-			for i in self.pids:
-				try:
-					os.kill(i, 0)
-					new_list.append(i)
-				except:
-					# It's dead, awesome!
-					pass
-			self.pids = new_list
-			if len(self.pids) == 0:
-				log('__end_job: 0 slave left')
+			size = self.pref_todo_queue.qsize()
+			if size == 0:
 				break
-
-			log('__end_job: %s slaves are still alive, waiting (list: %s)' % (len(self.pids), self.pids))
-			time.sleep(0.5)
-		log('__end_job: I can now die in peace!')
+			log('__end_job: %s items left in prefetchers queue, waiting' % (size,))
+			time.sleep(2)
+		log('__end_job: prefetchers queue is drained')
 
 		# This is the last item ever put on that queue
 		# The plugin on the other end will know the backup is completed
@@ -320,23 +310,21 @@ class BareosFdPluginLibcloud(BareosFdPluginBaseclass.BareosFdPluginBaseclass):
 		return bRCs['bRC_OK']
 
 	def start_backup_job(self, context):
-		# We do not care much about our slaves
-		# To avoid both .join() and zombies, simply ignore SIG_CHILD
-		signal.signal(signal.SIGCHLD, signal.SIG_IGN)
-
 		self.manager = multiprocessing.Manager()
 		self.plugin_todo_queue = self.manager.Queue(maxsize=self.options['queue_size'])
 		self.pref_todo_queue = self.manager.Queue(maxsize=self.options['nb_prefetcher'])
 
+		self.pf_pids = list()
 		self.prefetchers = list()
 		for i in range(0, self.options['nb_prefetcher']):
 			target = Prefetcher(self.options, self.plugin_todo_queue, self.pref_todo_queue)
 			proc = multiprocessing.Process(target=target)
 			proc.start()
-			self.prefetchers.append(proc.pid)
-		log('%s prefetcher started' % (len(self.prefetchers),))
+			self.pf_pids.append(proc.pid)
+			self.prefetchers.append(proc)
+		log('%s prefetcher started' % (len(self.pf_pids),))
 
-		writer = Writer(self.plugin_todo_queue, self.pref_todo_queue, self.last_run, self.options, self.prefetchers)
+		writer = Writer(self.plugin_todo_queue, self.pref_todo_queue, self.last_run, self.options, self.pf_pids)
 		self.writer = multiprocessing.Process(target=writer)
 		self.writer.start()
 		self.driver = connect(self.options)
@@ -367,6 +355,15 @@ class BareosFdPluginLibcloud(BareosFdPluginBaseclass.BareosFdPluginBaseclass):
 				# manager already dead, somehow ?!
 				pass
 			log('self.manager.shutdown()')
+
+			for i in self.prefetchers:
+				log('join() for a prefetcher (pid %s)' % (i.pid,))
+				i.join()
+			log('Ok, all prefetchers are dead')
+
+			log('Join() for the writer (pid %s)' % (self.writer.pid,))
+			self.writer.join()
+			log('writer is dead')
 
 			# savepkt is always checked, so we fill it with a dummy value
 			savepkt.fname = 'empty'
