@@ -252,6 +252,9 @@ class BareosFdPluginLibcloud(BareosFdPluginBaseclass.BareosFdPluginBaseclass):
 		self.last_run = datetime.datetime.fromtimestamp(self.since)
 		self.last_run = self.last_run.replace(tzinfo=None)
 
+		driver = connect(self.options)
+		driver.iterate_containers()
+
 		# The job in process
 		# Setto None when the whole backup is completed
 		# Restore's path will not touch this
