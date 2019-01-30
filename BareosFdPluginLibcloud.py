@@ -252,8 +252,12 @@ class BareosFdPluginLibcloud(BareosFdPluginBaseclass.BareosFdPluginBaseclass):
 		self.last_run = datetime.datetime.fromtimestamp(self.since)
 		self.last_run = self.last_run.replace(tzinfo=None)
 
+		# We force an action to the backend, to test our params
+		# If we can get anything, then it is ok
+		# Else, an exception will be raised, and the job will fail
 		driver = connect(self.options)
-		driver.iterate_containers()
+		for _ in driver.iterate_containers():
+			break
 
 		# The job in process
 		# Setto None when the whole backup is completed
