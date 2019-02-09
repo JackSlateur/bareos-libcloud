@@ -97,6 +97,6 @@ Known bug
 Libcloud currently cannot handle "wild" object name. It uses urllib.urlencode() where is should not. In short, if you have exotic characters, these objects will not be backed up (a message will be logged).  
 A bug report is filled, no bug fix is released yet.
 
-
+Also, the plugin crashes sometimes, reporting an "interrupted system call". There is no known fix yet.
 
 Feedbacks, feature requests or bug reports are welcome !
